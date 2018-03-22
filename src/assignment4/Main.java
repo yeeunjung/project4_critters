@@ -1,9 +1,8 @@
 package assignment4;
 /* CRITTERS Main.java
  * EE422C Project 4 submission by
- * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
+ * Allegra Thomas
+ * at35737
  * <Student1 5-digit Unique No.>
  * <Student2 Name>
  * <Student2 EID>
@@ -70,7 +69,7 @@ public class Main {
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
         
-        // System.out.println("GLHF");
+        
         
         /* Write your code above */
         System.out.flush();
