@@ -98,7 +98,7 @@ public class Main {
         		System.out.println("noob");
         		break;
         	} else {
-        		Critter.clearWorld();
+        		//Critter.clearWorld();
         		System.out.println("noob");
         	}
         }
