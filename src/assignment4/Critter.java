@@ -361,6 +361,7 @@ public abstract class Critter {
 		
 		// Time to fight
 		for (Map.Entry<String,Set<Integer>> duel : encountered.entrySet()) {
+			// This means that we are talking for each key,value entry
 			for(int crit=0; crit<duel.getValue().size(); crit++) {
 				
 			}
