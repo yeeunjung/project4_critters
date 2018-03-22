@@ -5,11 +5,11 @@ package assignment4;
  * <Student1 Name>
  * <Student1 EID>
  * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
+ * Yeeun Jung
+ * yj3897
  * <Student2 5-digit Unique No.>
- * Slip days used: <0>
- * Fall 2016
+ * Slip days used: 0
+ * Spring 2018
  */
 
 import java.util.ArrayList;
@@ -70,28 +70,36 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-        ArrayList<String> tempCommand = new ArrayList<String>();
-        
+        String tempCommand;
+        for(int count=0; count<1; count++) {
+        	try {
+        		Critter.makeCritter("Craig");
+        	} catch(InvalidCritterException | NoClassDefFoundError e) {
+        		System.out.println("fuck u");
+        	}
+        	
+        }
         while(true) {
         	System.out.println("critters>");
-        	tempCommand.add(kb.next());       	
-        	if(tempCommand.get(0).equals("show")) {
+        	tempCommand = kb.nextLine();    
+        	String[] tempCommandStr = tempCommand.trim().split(" ");
+        	if(tempCommandStr[0].equals("show")) {
         		Critter.displayWorld();
-        	} else if(tempCommand.get(0).equals("step")) {
-        		if(tempCommand.size()==1) {
+        	} else if(tempCommandStr[0].equals("step")) {
+        		if(tempCommandStr.length==1) {
         			Critter.worldTimeStep();
         		} else {
-        			for(int count=0; count<Integer.valueOf(tempCommand.get(1)); count++) {
+        			for(int count=0; count<Integer.valueOf(tempCommandStr[1]); count++) {
         				Critter.worldTimeStep();
         			}
         		}
-        	} else if(tempCommand.get(0).equals("quit")) {
+        		Critter.displayWorld();
+        	} else if(tempCommandStr[0].equals("quit")) {
         		System.out.println("noob");
         		break;
         	} else {
         		System.out.println("noob");
         	}
-        	tempCommand.clear();
         }
         // System.out.println("GLHF");
         

@@ -6,7 +6,7 @@ package assignment4;
  * <Student1 5-digit Unique No.>
  * Yeeun Jung
  * yj3897
- * <Student2 5-digit Unique No.>
+ * 15510
  * Slip days used: <0>
  * Spring 2018
  */
@@ -72,21 +72,24 @@ public abstract class Critter {
 			case 5:
 				x_coord--;
 				y_coord++;
+				break;
 			case 6:
 				y_coord++;
+				break;
 			case 7:
 				x_coord++;
 				y_coord++;
+				break;
 		}
-		if (x_coord == Params.world_width)	{
+		if (x_coord >= Params.world_width)	{
 			x_coord = 0;
-		} else if (x_coord == -1)	{
+		} else if (x_coord <= -1)	{
 			x_coord = Params.world_width-1;
 		}
 		
-		if (y_coord == Params.world_height)	{
+		if (y_coord >= Params.world_height)	{
 			y_coord = 0;
-		} else if (y_coord == -1)	{
+		} else if (y_coord <= -1)	{
 			y_coord = Params.world_height-1;
 		}
 	}
@@ -114,11 +117,14 @@ public abstract class Critter {
 			case 5:
 				x_coord-=2;
 				y_coord+=2;
+				break;
 			case 6:
 				y_coord+=2;
+				break;
 			case 7:
 				x_coord+=2;
 				y_coord+=2;
+				break;
 		}
 		if (x_coord == Params.world_width)	{
 			x_coord = 0;
@@ -160,27 +166,35 @@ public abstract class Critter {
 			case 0:
 				offspring.x_coord = x_coord+1;
 				offspring.y_coord = y_coord;
+				break;
 			case 1:
 				offspring.x_coord = x_coord+1;
 				offspring.y_coord = y_coord-1;
+				break;
 			case 2:
 				offspring.x_coord = x_coord;
 				offspring.y_coord = y_coord-1;
+				break;
 			case 3:
 				offspring.x_coord = x_coord-1;
 				offspring.y_coord = y_coord-1;
+				break;
 			case 4:
 				offspring.x_coord = x_coord-1;
 				offspring.y_coord = y_coord;
+				break;
 			case 5:
 				offspring.x_coord = x_coord-1;
 				offspring.y_coord = y_coord+1;
+				break;
 			case 6:
 				offspring.x_coord = x_coord;
 				offspring.y_coord = y_coord+1;
+				break;
 			case 7:
 				offspring.x_coord = x_coord+1;
 				offspring.y_coord = y_coord+1;
+				break;
 		}
 	}
 
@@ -326,13 +340,26 @@ public abstract class Critter {
 		}
 		
 		// Generate algae genAlgae()
+		for(int count=0; count<Params.refresh_algae_count; count++) {
+			try {
+				population.add(Critter.makeCritter("Algae"));
+			} catch(InvalidCritterException | NoClassDefFoundError e) {
+        		System.out.println("fuck u");
+        	}
+		}
 		
 		// Move babies to general population
 		for(Critter baby : babies) {
 			population.add(baby);
 		}
+		babies.clear();
 		
 		// Cull the dead!
+		for(Critter creature : population) {
+			if(creature.energy==0) {
+				population.remove(creature);
+			}
+		}
 	}
 	
 	public static void displayWorld() {
