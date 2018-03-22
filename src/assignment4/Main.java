@@ -72,16 +72,17 @@ public class Main {
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
         String tempCommand;
-  
-//          for(int count=0; count<1; count++) {
-//        	try {
-//        		Critter.makeCritter("Craig");
-//        		Critter.makeCritter("Critter5");
-//        	} catch(InvalidCritterException | NoClassDefFoundError e) {
-//        		System.out.println("fuck u man");
-//        	}
-//        	
-//        }
+        /*
+          for(int count=0; count<1; count++) {
+        	try {
+        		Critter.makeCritter("Craig");
+        		Critter.makeCritter("Critter5");
+        	} catch(InvalidCritterException | NoClassDefFoundError e) {
+        		System.out.println("fuck u man");
+        	}
+        	
+        }
+        */
         
         while(true) {
 	        	System.out.println("critters>");

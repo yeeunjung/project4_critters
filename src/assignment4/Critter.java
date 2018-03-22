@@ -54,101 +54,143 @@ public abstract class Critter {
 	private int x_coord;
 	private int y_coord;
 	
+	// Our own variable for it the Critter moved at all
+	private boolean moved;
+	// Or if it is fighting
+	private boolean fighting;
+	
 	protected final void walk(int direction) {
+		int origX = x_coord;
+		int origY = y_coord;
 		energy -= Params.walk_energy_cost;
-		switch(direction)	{
-			case 0:
-				x_coord++;
-				break;
-			case 1:
-				x_coord++;
-				y_coord--;
-				break;
-			case 2:
-				y_coord--;
-				break;
-			case 3:
-				y_coord--;
-				x_coord--;
-				break;
-			case 4:
-				x_coord--;
-				break;
-			case 5:
-				x_coord--;
-				y_coord++;
-				break;
-			case 6:
-				y_coord++;
-				break;
-			case 7:
-				x_coord++;
-				y_coord++;
-				break;
-		}
-		if (x_coord >= Params.world_width)	{
-			x_coord = 0;
-		} else if (x_coord <= -1)	{
-			x_coord = Params.world_width-1;
-		}
-		
-		if (y_coord >= Params.world_height)	{
-			y_coord = 0;
-		} else if (y_coord <= -1)	{
-			y_coord = Params.world_height-1;
+		if(!moved) {
+			switch(direction)	{
+				case 0:
+					x_coord++;
+					break;
+				case 1:
+					x_coord++;
+					y_coord--;
+					break;
+				case 2:
+					y_coord--;
+					break;
+				case 3:
+					y_coord--;
+					x_coord--;
+					break;
+				case 4:
+					x_coord--;
+					break;
+				case 5:
+					x_coord--;
+					y_coord++;
+					break;
+				case 6:
+					y_coord++;
+					break;
+				case 7:
+					x_coord++;
+					y_coord++;
+					break;
+			}
+			if (x_coord >= Params.world_width)	{
+				x_coord = 0;
+			} else if (x_coord <= -1)	{
+				x_coord = Params.world_width-1;
+			}
+			
+			if (y_coord >= Params.world_height)	{
+				y_coord = 0;
+			} else if (y_coord <= -1)	{
+				y_coord = Params.world_height-1;
+			}
+			
+			if(fighting) {
+				int count = 0;
+				for(Critter crit : population) {
+					if(crit.x_coord==x_coord && crit.y_coord==y_coord) {
+						count++;
+					}
+				}
+				if(count<=1) {
+					x_coord = origX;
+					y_coord = origY;
+				}
+			}
+			moved = true;
 		}
 	}
 	
 	protected final void run(int direction) {
+		int origX = x_coord;
+		int origY = y_coord;
 		energy -= Params.run_energy_cost;
-		switch(direction)	{
-			case 0:
-				x_coord+=2;
-				break;
-			case 1:
-				x_coord+=2;
-				y_coord-=2;
-				break;
-			case 2:
-				y_coord-=2;
-				break;
-			case 3:
-				y_coord-=2;
-				x_coord-=2;
-				break;
-			case 4:
-				x_coord-=2;
-				break;
-			case 5:
-				x_coord-=2;
-				y_coord+=2;
-				break;
-			case 6:
-				y_coord+=2;
-				break;
-			case 7:
-				x_coord+=2;
-				y_coord+=2;
-				break;
-		}
-		if (x_coord == Params.world_width)	{
-			x_coord = 0;
-		} else if (x_coord == Params.world_width+1){
-			x_coord = 1;
-		} else if (x_coord == -1)	{
-			x_coord = Params.world_width-1;
-		} else if (x_coord == -2)	{
-			x_coord = Params.world_width-2;
-		}
-		
-		if (y_coord == Params.world_height)	{
-			y_coord = 0;
-		} else if (y_coord == Params.world_height+1) {
-			y_coord = 1;
-		} else if (y_coord == -1)	{
-			y_coord = Params.world_height-1;
-		} else if (y_coord == -2) {
-			y_coord = Params.world_height-2;
+		if(!moved) {
+			switch(direction)	{
+				case 0:
+					x_coord+=2;
+					break;
+				case 1:
+					x_coord+=2;
+					y_coord-=2;
+					break;
+				case 2:
+					y_coord-=2;
+					break;
+				case 3:
+					y_coord-=2;
+					x_coord-=2;
+					break;
+				case 4:
+					x_coord-=2;
+					break;
+				case 5:
+					x_coord-=2;
+					y_coord+=2;
+					break;
+				case 6:
+					y_coord+=2;
+					break;
+				case 7:
+					x_coord+=2;
+					y_coord+=2;
+					break;
+			}
+			
+			if (x_coord == Params.world_width)	{
+				x_coord = 0;
+			} else if (x_coord == Params.world_width+1){
+				x_coord = 1;
+			} else if (x_coord == -1)	{
+				x_coord = Params.world_width-1;
+			} else if (x_coord == -2)	{
+				x_coord = Params.world_width-2;
+			}
+			
+			if (y_coord == Params.world_height)	{
+				y_coord = 0;
+			} else if (y_coord == Params.world_height+1) {
+				y_coord = 1;
+			} else if (y_coord == -1)	{
+				y_coord = Params.world_height-1;
+			} else if (y_coord == -2) {
+				y_coord = Params.world_height-2;
+			}
+			
+			if(fighting) {
+				int count = 0;
+				for(Critter crit : population) {
+					if(crit.x_coord==x_coord && crit.y_coord==y_coord) {
+						count++;
+					}
+				}
+				if(count<=1) {
+					x_coord = origX;
+					y_coord = origY;
+				}
+			}
+			moved = true;
 		}
 	}
 	
@@ -165,6 +207,11 @@ public abstract class Critter {
 			parentEnergy++;
 		}
 		energy = (int) parentEnergy;
+		
+		//an offspring doesn't move...yet
+		offspring.moved = false;
+		//or fight
+		offspring.fighting = false;
 		
 		//to determine the offspring's position
 		switch(direction)	{
@@ -224,6 +271,8 @@ public abstract class Critter {
 			Buddy.x_coord = getRandomInt(Params.world_width);
 			Buddy.y_coord = getRandomInt(Params.world_height);
 			Buddy.energy = Params.start_energy;
+			Buddy.moved = false;
+			Buddy.fighting = false;
 		}
 		catch(ClassNotFoundException | InstantiationException | IllegalAccessException exception)	{
 			throw new InvalidCritterException(critter_class_name);
@@ -299,7 +348,7 @@ public abstract class Critter {
 		
 		protected int getY_coord() {
 			return super.y_coord;
-		}
+		}	
 		
 
 		/*
@@ -372,6 +421,10 @@ public abstract class Critter {
 			//System.out.println("Starting fight");
 			// This means that we are talking for each key,value entry
 			for(int idx=0; idx<duel.getValue().size()-1; idx++) {
+				// We are now fighting~ must update boolean fighting
+				population.get(duel.getValue().get(idx)).fighting = true;
+				population.get(duel.getValue().get(idx+1)).fighting = true;
+				
 				int winner=0;
 				int loser=0;
 				boolean p1Fight = population.get(duel.getValue().get(idx)).fight(population.get(duel.getValue().get(idx+1)).toString());
@@ -412,6 +465,11 @@ public abstract class Critter {
 					
 					population.get(duel.getValue().get(winner)).energy += population.get(duel.getValue().get(loser)).energy/2;
 					population.get(duel.getValue().get(loser)).energy = 0;
+					
+					// The fighting has concluded. Mark as such.
+					population.get(duel.getValue().get(idx)).fighting = false;
+					population.get(duel.getValue().get(idx+1)).fighting = false;
+					
 					//System.out.println(population.get(duel.getValue().get(winner)).toString() + winner + " has won");
 				}
 			}
@@ -455,6 +513,11 @@ public abstract class Critter {
 			if(population.get(idx).energy<=0) {
 				population.remove(idx);
 			}
+		}
+		
+		// Now that the time is over, everyone resets if they have moved or not
+		for(Critter crit : population) {
+			crit.moved = false;
 		}
 	}
 	
