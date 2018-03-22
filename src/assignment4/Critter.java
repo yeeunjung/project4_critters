@@ -244,7 +244,11 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-	
+		for (Critter c: population) {
+			if (c.getClass().getName().equalsIgnoreCase(critter_class_name)) {
+				result.add(c);	
+			}
+		}
 		return result;
 	}
 	
@@ -409,6 +413,36 @@ public abstract class Critter {
 	}
 	
 	public static void displayWorld() {
-		// Complete this method.
+		// Create separator line
+		String line = "+";
+		for(int cnt=0; cnt<Params.world_width; cnt++) {
+			line = line + "-";
+		}
+		line = line + "+";
+		
+		// eate the inside line
+		char[] inLine = new char[Params.world_height*Params.world_width];
+		for(int row=0; row<Params.world_height; row++) {
+			for(int cnt=0; cnt<Params.world_width; cnt++) {
+				inLine[row*Params.world_width+cnt] = ' ';
+			}
+		}
+		
+		// Now add 
+		for(Critter organism : population) {
+			inLine[organism.x_coord*Params.world_width + organism.y_coord] = organism.toString().charAt(0);
+		}
+
+		System.out.println(line);
+		for(int idx=0; idx<Params.world_height*Params.world_width; idx++) {
+			if(idx%Params.world_width==0) {
+				System.out.print("|");
+			} 
+			System.out.print(inLine[idx]);
+			if(idx%Params.world_width==Params.world_width-1) {
+				System.out.println("|");
+			}
+		}
+		System.out.println(line);
 	}
 }
