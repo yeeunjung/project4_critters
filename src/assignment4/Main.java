@@ -73,25 +73,69 @@ public class Main {
         ArrayList<String> tempCommand = new ArrayList<String>();
         
         while(true) {
-        	System.out.println("critters>");
-        	tempCommand.add(kb.next());       	
-        	if(tempCommand.get(0).equals("show")) {
-        		Critter.displayWorld();
-        	} else if(tempCommand.get(0).equals("step")) {
-        		if(tempCommand.size()==1) {
-        			Critter.worldTimeStep();
-        		} else {
-        			for(int count=0; count<Integer.valueOf(tempCommand.get(1)); count++) {
-        				Critter.worldTimeStep();
-        			}
-        		}
-        	} else if(tempCommand.get(0).equals("quit")) {
-        		System.out.println("noob");
-        		break;
-        	} else {
-        		System.out.println("noob");
-        	}
-        	tempCommand.clear();
+	        	System.out.println("critters>");
+	        	tempCommand.add(kb.nextLine());    	
+	        	if(tempCommand.get(0).equals("show")) {
+	        		//if there's extra stuff after "show"
+	        		if (tempCommand.size() != 1)	{
+	        			System.out.println("error processing: " + tempCommand);
+	        		} else {
+	        			Critter.displayWorld();
+	        		}
+	        	} else if(tempCommand.get(0).equals("step")) {
+	        		if(tempCommand.size()==1) {
+	        			Critter.worldTimeStep();
+	        		} else if (tempCommand.size()==2){	
+	        			try {
+		        			for(int count=0; count<Integer.valueOf(tempCommand.get(1)); count++) {
+		        				Critter.worldTimeStep();
+		        			} 
+	        			}	catch (NumberFormatException e)	{
+	        					System.out.println("error processing: " + tempCommand);
+		        			}
+	        		} else {
+	        			System.out.println("error processing: " + tempCommand);
+	        		}
+	        	} else if (tempCommand.get(0).equals("make")) {
+	        		//if the command is "make" and nothing else or has more than three arguments
+	        		if (tempCommand.size() == 1 || tempCommand.size() > 3)	{
+	        			System.out.println("error processing: " + tempCommand);
+	        		} else {
+		        		int count = 1;
+		        		if (tempCommand.size()==3) {
+		        			try {
+		        				count = Integer.valueOf(tempCommand.get(2));
+		        			} catch (NumberFormatException e){
+		        				System.out.println("error processing: " + tempCommand);
+		        			}
+		        		}
+	        			try {
+	        				for (int i=0; i<count; i++) {
+	        					Critter.makeCritter(tempCommand.get(1));
+	        				}
+	        			} catch(InvalidCritterException e) {
+	        				System.out.println("error processing: " + tempCommand);
+	        			}
+	        		}
+	        	} else if(tempCommand.get(0).equals("seed")){
+	        		//if there isn't the correct number of arguments
+	        		if (tempCommand.size() != 2)	{
+	        			System.out.println("error processing: " + tempCommand);
+	        		} else {
+		        		try {
+		        			int seed = Integer.valueOf(tempCommand.get(1));
+		        			Critter.setSeed(seed);
+		        		} catch (NumberFormatException e) {
+		        			System.out.println("error processing: " + tempCommand);
+		        		}
+	        		}
+	        	} else if(tempCommand.get(0).equals("quit")) {
+	        		System.out.println("noob");
+	        		break;
+	        	} else {
+	        		System.out.println("invalid command: " + tempCommand);
+	        	}
+	        	tempCommand.clear();
         }
         // System.out.println("GLHF");
         
