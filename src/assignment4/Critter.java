@@ -8,7 +8,7 @@ package assignment4;
  * yj3897
  * <Student2 5-digit Unique No.>
  * Slip days used: <0>
- * Fall 2016
+ * Spring 2018
  */
 
 
@@ -179,7 +179,11 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-	
+		for (Critter c: population) {
+			if (c.getClass().getName().equalsIgnoreCase(critter_class_name)) {
+				result.add(c);	
+			}
+		}
 		return result;
 	}
 	
@@ -267,10 +271,64 @@ public abstract class Critter {
 	}
 	
 	public static void worldTimeStep() {
-		// Complete this method.
+		// Increment timestep
+		
+		// Update timesteps
+		for(Critter c : population) {
+			c.doTimeStep();
+		}
+		
+		// Do the fights. doEncounters()
+		
+		// UpdateRestEnergy
+		for(Critter c : population) {
+			c.energy = c.energy-Params.rest_energy_cost;
+		}
+		
+		// Generate algae genAlgae()
+		
+		// Move babies to general population
+		for(Critter baby : babies) {
+			population.add(baby);
+		}
+		
+		// Cull the dead!
 	}
 	
 	public static void displayWorld() {
-		// Complete this method.
+		// Create separator line
+		String line = "+";
+		for(int cnt=0; cnt<Params.world_width; cnt++) {
+			line = line + "-";
+		}
+		line = line + "+";
+		
+		// eate the inside line
+		char[] inLine = new char[Params.world_height*Params.world_width];
+		for(int row=0; row<Params.world_height; row++) {
+			for(int cnt=0; cnt<Params.world_width+2; cnt++) {
+				if(cnt==0 || cnt==Params.world_width+1) {
+					inLine[row*Params.world_width+cnt] = '|';
+					
+				} else {
+					inLine[row*Params.world_width+cnt] = ' ';
+				}
+			}
+		}
+		
+		// Now add 
+		for(Critter organism : population) {
+			inLine[organism.x_coord*Params.world_width + organism.y_coord] = organism.toString().charAt(0);
+		}
+
+		System.out.println(line);
+		for(int idx=0; idx<Params.world_height*Params.world_width; idx++) {
+			if(idx%Params.world_width==Params.world_width-1) {
+				System.out.println("");
+			} else {
+				System.out.println(inLine[idx]);
+			}
+		}
+		System.out.println(line);
 	}
 }
