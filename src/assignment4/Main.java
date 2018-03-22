@@ -158,7 +158,8 @@ public class Main {
 	        		System.out.println("noob");
 	        		break;
 	        	} else {
-}	        		System.out.println("invalid command: " + tempCommand);
+	        		System.out.println("invalid command: " + tempCommand);
+	        	}
         }
 
         // System.out.println("GLHF");
