@@ -1,8 +1,9 @@
 package assignment4;
 /* CRITTERS Main.java
  * EE422C Project 4 submission by
- * Allegra Thomas
- * at35737
+ * Replace <...> with your actual data.
+ * <Student1 Name>
+ * <Student1 EID>
  * <Student1 5-digit Unique No.>
  * <Student2 Name>
  * <Student2 EID>
@@ -69,11 +70,8 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-<<<<<<< HEAD
-        
-        
-=======
         ArrayList<String> tempCommand = new ArrayList<String>();
+        
         while(true) {
         	System.out.println("critters>");
         	tempCommand.add(kb.next());       	
@@ -96,7 +94,6 @@ public class Main {
         	tempCommand.clear();
         }
         // System.out.println("GLHF");
->>>>>>> 2be08f5281e573b6ad735d4c964ec4cc579b3fca
         
         /* Write your code above */
         System.out.flush();
