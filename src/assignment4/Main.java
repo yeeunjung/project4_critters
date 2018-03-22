@@ -71,6 +71,7 @@ public class Main {
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
         ArrayList<String> tempCommand = new ArrayList<String>();
+        
         while(true) {
         	System.out.println("critters>");
         	tempCommand.add(kb.next());       	
