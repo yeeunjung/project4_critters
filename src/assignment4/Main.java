@@ -12,6 +12,9 @@ package assignment4;
  * Spring 2018
  */
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
@@ -70,7 +73,8 @@ public class Main {
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
         String tempCommand;
-        for(int count=0; count<1; count++) {
+  
+          for(int count=0; count<1; count++) {
         	try {
         		Critter.makeCritter("Craig");
         		Critter.makeCritter("Critter5");
@@ -79,28 +83,83 @@ public class Main {
         	}
         	
         }
+        
         while(true) {
-        	System.out.println("critters>");
-        	tempCommand = kb.nextLine();    
-        	String[] tempCommandStr = tempCommand.trim().split(" ");
-        	if(tempCommandStr[0].equals("show")) {
-        		Critter.displayWorld();
-        	} else if(tempCommandStr[0].equals("step")) {
-        		if(tempCommandStr.length==1) {
-        			Critter.worldTimeStep();
-        		} else {
-        			for(int count=0; count<Integer.valueOf(tempCommandStr[1]); count++) {
-        				Critter.worldTimeStep();
-        			}
-        		}
-        		Critter.displayWorld();
-        	} else if(tempCommandStr[0].equals("quit")) {
-        		System.out.println("noob");
-        		break;
-        	} else {
-        		Critter.clearWorld();
-        		System.out.println("noob");
-        	}
+	        	System.out.println("critters>");
+	        	tempCommand = kb.nextLine();  
+	        	String[] tempCommandStr = tempCommand.trim().split(" ");
+	        	if(tempCommandStr[0].equals("show")) {
+	        		//if there's extra stuff after "show"
+	        		if (tempCommandStr.length != 1)	{
+	        			System.out.println("error processing: " + tempCommand);
+	        		} else {
+	        			Critter.displayWorld();
+	        		}
+	        	} else if(tempCommandStr[0].equals("step")) {
+	        		if(tempCommandStr.length==1) {
+	        			Critter.worldTimeStep();
+	        		} else if (tempCommandStr.length==2){	
+	        			try {
+		        			for(int count=0; count<Integer.valueOf(tempCommandStr[1]); count++) {
+		        				Critter.worldTimeStep();
+		        			} 
+	        			}	catch (NumberFormatException e)	{
+	        					System.out.println("error processing: " + tempCommand);
+		        			}
+	        		} else {
+	        			System.out.println("error processing: " + tempCommand);
+	        		}
+	        	} else if (tempCommandStr[0].equals("make")) {
+	        		//if the command is "make" and nothing else or has more than three arguments
+	        		if (tempCommandStr.length == 1 || tempCommandStr.length > 3)	{
+	        			System.out.println("error processing: " + tempCommand);
+	        		} else {
+		        		int count = 1;
+		        		if (tempCommandStr.length==3) {
+		        			try {
+		        				count = Integer.valueOf(tempCommandStr[2]);
+		        			} catch (NumberFormatException e){
+		        				System.out.println("error processing: " + tempCommand);
+		        			}
+		        		}
+	        			try {
+	        				for (int i=0; i<count; i++) {
+	        					Critter.makeCritter(tempCommandStr[1]);
+	        				}
+	        			} catch(InvalidCritterException e) {
+	        				System.out.println("error processing: " + tempCommand);
+	        			}
+	        		}
+	        	} else if(tempCommandStr[0].equals("seed")){
+	        		//if there isn't the correct number of arguments
+	        		if (tempCommandStr.length != 2)	{
+	        			System.out.println("error processing: " + tempCommand);
+	        		} else {
+		        		try {
+		        			int seed = Integer.valueOf(tempCommandStr[1]);
+		        			Critter.setSeed(seed);
+		        		} catch (NumberFormatException e) {
+		        			System.out.println("error processing: " + tempCommand);
+		        		}
+	        		}
+	        	} else if(tempCommandStr[0].equals("stats")) {
+	        		//if there isn't the correct number of arguments
+	        		if (tempCommandStr.length != 2)	{
+	        			System.out.println("error processing: " + tempCommand);
+	        		} else {
+		        		try {
+		        			List<Critter> instances = Critter.getInstances(tempCommandStr[1]);
+		        			Critter.runStats(instances);
+		        		} catch (InvalidCritterException e) {
+		        			System.out.println("error processing: " + tempCommand);
+		        		}
+	        		}
+	        	} else if(tempCommandStr[0].equals("quit")) {
+	        		System.out.println("noob");
+	        		break;
+	        	} else {
+	        		System.out.println("invalid command: " + tempCommand);
+	        	}
         }
 
         // System.out.println("GLHF");
