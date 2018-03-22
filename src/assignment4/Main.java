@@ -72,7 +72,7 @@ public class Main {
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
         String tempCommand;
-  
+        /*
           for(int count=0; count<1; count++) {
         	try {
         		Critter.makeCritter("Craig");
@@ -82,6 +82,7 @@ public class Main {
         	}
         	
         }
+        */
         
         while(true) {
 	        	System.out.println("critters>");
