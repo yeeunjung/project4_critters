@@ -346,13 +346,6 @@ public abstract class Critter {
 		// eate the inside line
 		char[] inLine = new char[Params.world_height*Params.world_width];
 		for(int row=0; row<Params.world_height; row++) {
-			for(int cnt=0; cnt<Params.world_width+2; cnt++) {
-				if(cnt==0 || cnt==Params.world_width+1) {
-					inLine[row*Params.world_width+cnt] = '|';
-					
-				} else {
-					inLine[row*Params.world_width+cnt] = ' ';
-				}
 			}
 		}
 		
@@ -364,9 +357,6 @@ public abstract class Critter {
 		System.out.println(line);
 		for(int idx=0; idx<Params.world_height*Params.world_width; idx++) {
 			if(idx%Params.world_width==Params.world_width-1) {
-				System.out.println("");
-			} else {
-				System.out.println(inLine[idx]);
 			}
 		}
 		System.out.println(line);
