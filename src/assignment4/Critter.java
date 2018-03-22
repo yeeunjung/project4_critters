@@ -6,7 +6,7 @@ package assignment4;
  * <Student1 EID>
  * <Student1 5-digit Unique No.>
  * Yeeun Jung
- * <Student2 EID>
+ * yj3897
  * <Student2 5-digit Unique No.>
  * Slip days used: <0>
  * Fall 2016
