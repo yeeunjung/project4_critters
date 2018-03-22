@@ -4,11 +4,11 @@ package assignment4;
  * Allegra Thomas
  * at35737
  * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
+ * Yeeun Jung
+ * yj3897
  * <Student2 5-digit Unique No.>
  * Slip days used: <0>
- * Fall 2016
+ * Spring 2018
  */
 
 
@@ -142,6 +142,46 @@ public abstract class Critter {
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
+		if (energy < Params.min_reproduce_energy) {
+			return;
+		}
+		//offspring energy automatically rounded down because it's an int
+		offspring.energy = energy/2;
+		//to round up the parent's energy
+		double parentEnergy = energy/2;
+		if (parentEnergy%1 != 0) {
+			parentEnergy -= parentEnergy%1;
+			parentEnergy++;
+		}
+		energy = (int) parentEnergy;
+		
+		//to determine the offspring's position
+		switch(direction)	{
+			case 0:
+				offspring.x_coord = x_coord+1;
+				offspring.y_coord = y_coord;
+			case 1:
+				offspring.x_coord = x_coord+1;
+				offspring.y_coord = y_coord-1;
+			case 2:
+				offspring.x_coord = x_coord;
+				offspring.y_coord = y_coord-1;
+			case 3:
+				offspring.x_coord = x_coord-1;
+				offspring.y_coord = y_coord-1;
+			case 4:
+				offspring.x_coord = x_coord-1;
+				offspring.y_coord = y_coord;
+			case 5:
+				offspring.x_coord = x_coord-1;
+				offspring.y_coord = y_coord+1;
+			case 6:
+				offspring.x_coord = x_coord;
+				offspring.y_coord = y_coord+1;
+			case 7:
+				offspring.x_coord = x_coord+1;
+				offspring.y_coord = y_coord+1;
+		}
 	}
 
 	public abstract void doTimeStep();
@@ -179,7 +219,11 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-	
+		for (Critter c: population) {
+			if (c.getClass().getName().equalsIgnoreCase(critter_class_name)) {
+				result.add(c);	
+			}
+		}
 		return result;
 	}
 	
@@ -267,10 +311,61 @@ public abstract class Critter {
 	}
 	
 	public static void worldTimeStep() {
-		// Complete this method.
+		// Increment timestep
+		
+		// Update timesteps
+		for(Critter c : population) {
+			c.doTimeStep();
+		}
+		
+		// Do the fights. doEncounters()
+		
+		// UpdateRestEnergy
+		for(Critter c : population) {
+			c.energy = c.energy-Params.rest_energy_cost;
+		}
+		
+		// Generate algae genAlgae()
+		
+		// Move babies to general population
+		for(Critter baby : babies) {
+			population.add(baby);
+		}
+		
+		// Cull the dead!
 	}
 	
 	public static void displayWorld() {
-		// Complete this method.
+		// Create separator line
+		String line = "+";
+		for(int cnt=0; cnt<Params.world_width; cnt++) {
+			line = line + "-";
+		}
+		line = line + "+";
+		
+		// eate the inside line
+		char[] inLine = new char[Params.world_height*Params.world_width];
+		for(int row=0; row<Params.world_height; row++) {
+			for(int cnt=0; cnt<Params.world_width; cnt++) {
+				inLine[row*Params.world_width+cnt] = ' ';
+			}
+		}
+		
+		// Now add 
+		for(Critter organism : population) {
+			inLine[organism.x_coord*Params.world_width + organism.y_coord] = organism.toString().charAt(0);
+		}
+
+		System.out.println(line);
+		for(int idx=0; idx<Params.world_height*Params.world_width; idx++) {
+			if(idx%Params.world_width==0) {
+				System.out.print("|");
+			} 
+			System.out.print(inLine[idx]);
+			if(idx%Params.world_width==Params.world_width-1) {
+				System.out.println("|");
+			}
+		}
+		System.out.println(line);
 	}
 }
