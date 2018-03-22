@@ -74,8 +74,9 @@ public class Main {
         for(int count=0; count<1; count++) {
         	try {
         		Critter.makeCritter("Craig");
+        		Critter.makeCritter("Critter5");
         	} catch(InvalidCritterException | NoClassDefFoundError e) {
-        		System.out.println("fuck u");
+        		System.out.println("fuck u man");
         	}
         	
         }
@@ -98,6 +99,7 @@ public class Main {
         		System.out.println("noob");
         		break;
         	} else {
+        		Critter.clearWorld();
         		System.out.println("noob");
         	}
         }
