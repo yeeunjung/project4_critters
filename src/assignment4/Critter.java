@@ -3,18 +3,12 @@ package assignment4;
  * EE422C Project 4 submission by
  * Allegra Thomas
  * at35737
- * <Student1 5-digit Unique No.>
-<<<<<<< HEAD
+ * 15510
  * Yeeun Jung
  * yj3897
  * 15510
-=======
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
->>>>>>> refs/remotes/origin/master
  * Slip days used: <0>
- * Fall 2016
+ * Spring 2018
  */
 
 
@@ -375,12 +369,14 @@ public abstract class Critter {
 	
 		// Time to fight
 		for (Map.Entry<String, ArrayList<Integer>> duel : encountered.entrySet()) {
+			//System.out.println("Starting fight");
 			// This means that we are talking for each key,value entry
 			for(int idx=0; idx<duel.getValue().size()-1; idx++) {
 				int winner=0;
 				int loser=0;
 				boolean p1Fight = population.get(duel.getValue().get(idx)).fight(population.get(duel.getValue().get(idx+1)).toString());
 				boolean p2Fight = population.get(duel.getValue().get(idx+1)).fight(population.get(duel.getValue().get(idx)).toString());
+				// Must also account for movement
 				if(population.get(duel.getValue().get(idx)).energy>0 && population.get(duel.getValue().get(idx+1)).energy>0 && Critter.samePosition(population.get(duel.getValue().get(idx)), population.get(duel.getValue().get(idx+1)))) {
 					int p1Roll;
 					int p2Roll;
@@ -416,6 +412,7 @@ public abstract class Critter {
 					
 					population.get(duel.getValue().get(winner)).energy += population.get(duel.getValue().get(loser)).energy/2;
 					population.get(duel.getValue().get(loser)).energy = 0;
+					//System.out.println(population.get(duel.getValue().get(winner)).toString() + winner + " has won");
 				}
 			}
 		}
