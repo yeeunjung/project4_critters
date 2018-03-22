@@ -12,7 +12,6 @@ package assignment4;
  * Spring 2018
  */
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
@@ -103,6 +102,7 @@ public class Main {
         		System.out.println("noob");
         	}
         }
+
         // System.out.println("GLHF");
         
         /* Write your code above */

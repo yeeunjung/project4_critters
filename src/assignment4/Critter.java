@@ -4,11 +4,17 @@ package assignment4;
  * Allegra Thomas
  * at35737
  * <Student1 5-digit Unique No.>
+<<<<<<< HEAD
  * Yeeun Jung
  * yj3897
  * 15510
+=======
+ * <Student2 Name>
+ * <Student2 EID>
+ * <Student2 5-digit Unique No.>
+>>>>>>> refs/remotes/origin/master
  * Slip days used: <0>
- * Spring 2018
+ * Fall 2016
  */
 
 
@@ -238,11 +244,7 @@ public abstract class Critter {
 	 */
 	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException {
 		List<Critter> result = new java.util.ArrayList<Critter>();
-		for (Critter c: population) {
-			if (c.getClass().getName().equalsIgnoreCase(critter_class_name)) {
-				result.add(c);	
-			}
-		}
+	
 		return result;
 	}
 	
@@ -406,36 +408,6 @@ public abstract class Critter {
 	}
 	
 	public static void displayWorld() {
-		// Create separator line
-		String line = "+";
-		for(int cnt=0; cnt<Params.world_width; cnt++) {
-			line = line + "-";
-		}
-		line = line + "+";
-		
-		// eate the inside line
-		char[] inLine = new char[Params.world_height*Params.world_width];
-		for(int row=0; row<Params.world_height; row++) {
-			for(int cnt=0; cnt<Params.world_width; cnt++) {
-				inLine[row*Params.world_width+cnt] = ' ';
-			}
-		}
-		
-		// Now add 
-		for(Critter organism : population) {
-			inLine[organism.x_coord*Params.world_width + organism.y_coord] = organism.toString().charAt(0);
-		}
-
-		System.out.println(line);
-		for(int idx=0; idx<Params.world_height*Params.world_width; idx++) {
-			if(idx%Params.world_width==0) {
-				System.out.print("|");
-			} 
-			System.out.print(inLine[idx]);
-			if(idx%Params.world_width==Params.world_width-1) {
-				System.out.println("|");
-			}
-		}
-		System.out.println(line);
+		// Complete this method.
 	}
 }
