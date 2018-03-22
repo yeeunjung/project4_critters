@@ -4,15 +4,26 @@ package assignment4;
  * Allegra Thomas
  * at35737
  * <Student1 5-digit Unique No.>
+<<<<<<< HEAD
+ * Yeeun Jung
+ * yj3897
+ * 15510
+=======
  * <Student2 Name>
  * <Student2 EID>
  * <Student2 5-digit Unique No.>
+>>>>>>> refs/remotes/origin/master
  * Slip days used: <0>
  * Fall 2016
  */
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
@@ -72,21 +83,24 @@ public abstract class Critter {
 			case 5:
 				x_coord--;
 				y_coord++;
+				break;
 			case 6:
 				y_coord++;
+				break;
 			case 7:
 				x_coord++;
 				y_coord++;
+				break;
 		}
-		if (x_coord == Params.world_width)	{
+		if (x_coord >= Params.world_width)	{
 			x_coord = 0;
-		} else if (x_coord == -1)	{
+		} else if (x_coord <= -1)	{
 			x_coord = Params.world_width-1;
 		}
 		
-		if (y_coord == Params.world_height)	{
+		if (y_coord >= Params.world_height)	{
 			y_coord = 0;
-		} else if (y_coord == -1)	{
+		} else if (y_coord <= -1)	{
 			y_coord = Params.world_height-1;
 		}
 	}
@@ -114,11 +128,14 @@ public abstract class Critter {
 			case 5:
 				x_coord-=2;
 				y_coord+=2;
+				break;
 			case 6:
 				y_coord+=2;
+				break;
 			case 7:
 				x_coord+=2;
 				y_coord+=2;
+				break;
 		}
 		if (x_coord == Params.world_width)	{
 			x_coord = 0;
@@ -142,6 +159,54 @@ public abstract class Critter {
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
+		if (energy < Params.min_reproduce_energy) {
+			return;
+		}
+		//offspring energy automatically rounded down because it's an int
+		offspring.energy = energy/2;
+		//to round up the parent's energy
+		double parentEnergy = energy/2;
+		if (parentEnergy%1 != 0) {
+			parentEnergy -= parentEnergy%1;
+			parentEnergy++;
+		}
+		energy = (int) parentEnergy;
+		
+		//to determine the offspring's position
+		switch(direction)	{
+			case 0:
+				offspring.x_coord = x_coord+1;
+				offspring.y_coord = y_coord;
+				break;
+			case 1:
+				offspring.x_coord = x_coord+1;
+				offspring.y_coord = y_coord-1;
+				break;
+			case 2:
+				offspring.x_coord = x_coord;
+				offspring.y_coord = y_coord-1;
+				break;
+			case 3:
+				offspring.x_coord = x_coord-1;
+				offspring.y_coord = y_coord-1;
+				break;
+			case 4:
+				offspring.x_coord = x_coord-1;
+				offspring.y_coord = y_coord;
+				break;
+			case 5:
+				offspring.x_coord = x_coord-1;
+				offspring.y_coord = y_coord+1;
+				break;
+			case 6:
+				offspring.x_coord = x_coord;
+				offspring.y_coord = y_coord+1;
+				break;
+			case 7:
+				offspring.x_coord = x_coord+1;
+				offspring.y_coord = y_coord+1;
+				break;
+		}
 	}
 
 	public abstract void doTimeStep();
@@ -162,8 +227,8 @@ public abstract class Critter {
 			Class newCritter = Class.forName("assignment4." + critter_class_name);
 			Critter Buddy = (Critter) newCritter.newInstance();
 			population.add(Buddy);
-			Buddy.x_coord = getRandomInt(Params.world_width - 1);
-			Buddy.y_coord = getRandomInt(Params.world_height - 1);
+			Buddy.x_coord = getRandomInt(Params.world_width);
+			Buddy.y_coord = getRandomInt(Params.world_height);
 			Buddy.energy = Params.start_energy;
 		}
 		catch(ClassNotFoundException | InstantiationException | IllegalAccessException exception)	{
@@ -264,10 +329,83 @@ public abstract class Critter {
 	 */
 	public static void clearWorld() {
 		// Complete this method.
+		for(int idx=population.size()-1; idx>=0; idx--){
+			population.remove(idx);
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private static void doEncounters() {
+		// Must first figure out who is in the same spots
+		Map<String, Set<Integer>> encountered = new HashMap<String, Set<Integer>>();
+		Set<Integer> popID = new HashSet<Integer>();
+		String coord="";
+		for(int idx1=0; idx1<population.size()-1; idx1++) {
+			for(int idx2=idx1+1; idx2<population.size(); idx2++) {
+				if(population.get(idx1).x_coord==population.get(idx2).x_coord && population.get(idx1).y_coord==population.get(idx2).y_coord) {
+					coord = String.valueOf(population.get(idx1).x_coord) + "," + String.valueOf(population.get(idx1).y_coord);
+					if(encountered.containsKey(coord)) {
+						encountered.get(coord).add(idx1);
+						encountered.get(coord).add(idx2);
+					} else {
+						popID.add(idx1);
+						popID.add(idx2);
+						encountered.put(coord,popID);
+						popID.clear();
+					}
+				}
+			}
+		}
+		
+		// Time to fight
+		for (Map.Entry<String,Set<Integer>> duel : encountered.entrySet()) {
+			// This means that we are talking for each key,value entry
+			for(int crit=0; crit<duel.getValue().size(); crit++) {
+				
+			}
+		}
+		return;
 	}
 	
 	public static void worldTimeStep() {
-		// Complete this method.
+		// Increment timestep
+		
+		// Update timesteps
+		for(Critter c : population) {
+			c.doTimeStep();
+		}
+		
+		// Do the fights. doEncounters()
+		Critter.doEncounters();
+		
+		// UpdateRestEnergy
+		for(Critter c : population) {
+			c.energy = c.energy-Params.rest_energy_cost;
+		}
+		
+		// Generate algae genAlgae()
+		for(int count=0; count<Params.refresh_algae_count; count++) {
+			try {
+				Critter.makeCritter("Algae");
+			} catch(InvalidCritterException | NoClassDefFoundError e) {
+        		System.out.println("fuck u");
+        	}
+		}
+		
+		// Move babies to general population
+		for(Critter baby : babies) {
+			population.add(baby);
+		}
+		babies.clear();
+		
+		// Cull the dead!
+		for(Critter creature : population) {
+			if(creature.energy==0) {
+				population.remove(creature);
+			}
+		}
 	}
 	
 	public static void displayWorld() {
