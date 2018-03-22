@@ -1,9 +1,8 @@
 package assignment4;
 /* CRITTERS Critter.java
  * EE422C Project 4 submission by
- * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
+ * Allegra Thomas
+ * at35737
  * <Student1 5-digit Unique No.>
  * <Student2 Name>
  * <Student2 EID>
