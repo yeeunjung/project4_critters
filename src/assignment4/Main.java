@@ -13,6 +13,7 @@ package assignment4;
  */
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.io.*;
 
@@ -127,6 +128,18 @@ public class Main {
 		        			int seed = Integer.valueOf(tempCommandStr[1]);
 		        			Critter.setSeed(seed);
 		        		} catch (NumberFormatException e) {
+		        			System.out.println("error processing: " + tempCommand);
+		        		}
+	        		}
+	        	} else if(tempCommandStr[0].equals("stats")) {
+	        		//if there isn't the correct number of arguments
+	        		if (tempCommandStr.length != 2)	{
+	        			System.out.println("error processing: " + tempCommand);
+	        		} else {
+		        		try {
+		        			List<Critter> instances = Critter.getInstances(tempCommandStr[1]);
+		        			Critter.runStats(instances);
+		        		} catch (InvalidCritterException e) {
 		        			System.out.println("error processing: " + tempCommand);
 		        		}
 	        		}
