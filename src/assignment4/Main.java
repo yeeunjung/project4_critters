@@ -12,7 +12,6 @@ package assignment4;
  * Fall 2016
  */
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
@@ -70,29 +69,7 @@ public class Main {
 
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
-        ArrayList<String> tempCommand = new ArrayList<String>();
         
-        while(true) {
-        	System.out.println("critters>");
-        	tempCommand.add(kb.next());       	
-        	if(tempCommand.get(0).equals("show")) {
-        		Critter.displayWorld();
-        	} else if(tempCommand.get(0).equals("step")) {
-        		if(tempCommand.size()==1) {
-        			Critter.worldTimeStep();
-        		} else {
-        			for(int count=0; count<Integer.valueOf(tempCommand.get(1)); count++) {
-        				Critter.worldTimeStep();
-        			}
-        		}
-        	} else if(tempCommand.get(0).equals("quit")) {
-        		System.out.println("noob");
-        		break;
-        	} else {
-        		System.out.println("noob");
-        	}
-        	tempCommand.clear();
-        }
         // System.out.println("GLHF");
         
         /* Write your code above */
