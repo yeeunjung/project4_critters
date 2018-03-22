@@ -3,18 +3,12 @@ package assignment4;
  * EE422C Project 4 submission by
  * Allegra Thomas
  * at35737
- * <Student1 5-digit Unique No.>
-<<<<<<< HEAD
+ * 15510
  * Yeeun Jung
  * yj3897
  * 15510
-=======
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
->>>>>>> refs/remotes/origin/master
  * Slip days used: <0>
- * Fall 2016
+ * Spring 2018
  */
 
 
@@ -341,33 +335,85 @@ public abstract class Critter {
 	/**
 	 * 
 	 */
+	private static boolean samePosition(Critter a, Critter b) {
+		return (a.x_coord==b.x_coord && a.y_coord==b.y_coord);
+	}
+	
+	/**
+	 * 
+	 */
 	private static void doEncounters() {
 		// Must first figure out who is in the same spots
-		Map<String, Set<Integer>> encountered = new HashMap<String, Set<Integer>>();
-		Set<Integer> popID = new HashSet<Integer>();
+		Map<String, ArrayList<Integer>> encountered = new HashMap<String, ArrayList<Integer>>();
 		String coord="";
 		for(int idx1=0; idx1<population.size()-1; idx1++) {
 			for(int idx2=idx1+1; idx2<population.size(); idx2++) {
 				if(population.get(idx1).x_coord==population.get(idx2).x_coord && population.get(idx1).y_coord==population.get(idx2).y_coord) {
+					ArrayList<Integer> popID = new ArrayList<Integer>();
 					coord = String.valueOf(population.get(idx1).x_coord) + "," + String.valueOf(population.get(idx1).y_coord);
 					if(encountered.containsKey(coord)) {
-						encountered.get(coord).add(idx1);
-						encountered.get(coord).add(idx2);
+						if(!encountered.get(coord).contains(idx1)) {
+							encountered.get(coord).add(idx1);
+						}
+						if(!encountered.get(coord).contains(idx2)) {
+							encountered.get(coord).add(idx2);
+						}
 					} else {
 						popID.add(idx1);
 						popID.add(idx2);
 						encountered.put(coord,popID);
-						popID.clear();
 					}
 				}
 			}
 		}
-		
+	
 		// Time to fight
-		for (Map.Entry<String,Set<Integer>> duel : encountered.entrySet()) {
+		for (Map.Entry<String, ArrayList<Integer>> duel : encountered.entrySet()) {
+			//System.out.println("Starting fight");
 			// This means that we are talking for each key,value entry
-			for(int crit=0; crit<duel.getValue().size(); crit++) {
-				
+			for(int idx=0; idx<duel.getValue().size()-1; idx++) {
+				int winner=0;
+				int loser=0;
+				boolean p1Fight = population.get(duel.getValue().get(idx)).fight(population.get(duel.getValue().get(idx+1)).toString());
+				boolean p2Fight = population.get(duel.getValue().get(idx+1)).fight(population.get(duel.getValue().get(idx)).toString());
+				// Must also account for movement
+				if(population.get(duel.getValue().get(idx)).energy>0 && population.get(duel.getValue().get(idx+1)).energy>0 && Critter.samePosition(population.get(duel.getValue().get(idx)), population.get(duel.getValue().get(idx+1)))) {
+					int p1Roll;
+					int p2Roll;
+					if(p1Fight!=p2Fight) {
+						if(p1Fight) {
+							winner = idx;
+							loser = idx+1;
+						}
+						else if(p2Fight) {
+							winner = idx+1;
+							loser = idx;
+						}
+					} else {
+						if(p1Fight) {
+							p1Roll = Critter.getRandomInt(population.get(duel.getValue().get(idx)).energy+1);
+						} else {
+							p1Roll = 0;
+						}
+						if(p2Fight) {
+							p2Roll = Critter.getRandomInt(population.get(duel.getValue().get(idx+1)).energy+1);
+						} else {
+							p2Roll = 0;
+						}
+						// Now we check who is winner
+						if(p1Roll > p2Roll) {
+							winner = idx;
+							loser = idx+1;
+						} else if(p1Roll <= p2Roll) {
+							winner = idx;
+							loser = idx+1;
+						} 	
+					}			
+					
+					population.get(duel.getValue().get(winner)).energy += population.get(duel.getValue().get(loser)).energy/2;
+					population.get(duel.getValue().get(loser)).energy = 0;
+					//System.out.println(population.get(duel.getValue().get(winner)).toString() + winner + " has won");
+				}
 			}
 		}
 		return;
@@ -405,9 +451,9 @@ public abstract class Critter {
 		babies.clear();
 		
 		// Cull the dead!
-		for(Critter creature : population) {
-			if(creature.energy==0) {
-				population.remove(creature);
+		for(int idx=population.size()-1; idx>=0; idx--) {
+			if(population.get(idx).energy<=0) {
+				population.remove(idx);
 			}
 		}
 	}
