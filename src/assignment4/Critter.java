@@ -1,9 +1,8 @@
 package assignment4;
 /* CRITTERS Critter.java
  * EE422C Project 4 submission by
- * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
+ * Allegra Thomas
+ * at35737
  * <Student1 5-digit Unique No.>
  * Yeeun Jung
  * yj3897
@@ -51,10 +50,95 @@ public abstract class Critter {
 	private int y_coord;
 	
 	protected final void walk(int direction) {
+		energy -= Params.walk_energy_cost;
+		switch(direction)	{
+			case 0:
+				x_coord++;
+				break;
+			case 1:
+				x_coord++;
+				y_coord--;
+				break;
+			case 2:
+				y_coord--;
+				break;
+			case 3:
+				y_coord--;
+				x_coord--;
+				break;
+			case 4:
+				x_coord--;
+				break;
+			case 5:
+				x_coord--;
+				y_coord++;
+			case 6:
+				y_coord++;
+			case 7:
+				x_coord++;
+				y_coord++;
+		}
+		if (x_coord == Params.world_width)	{
+			x_coord = 0;
+		} else if (x_coord == -1)	{
+			x_coord = Params.world_width-1;
+		}
+		
+		if (y_coord == Params.world_height)	{
+			y_coord = 0;
+		} else if (y_coord == -1)	{
+			y_coord = Params.world_height-1;
+		}
 	}
 	
 	protected final void run(int direction) {
+		energy -= Params.run_energy_cost;
+		switch(direction)	{
+			case 0:
+				x_coord+=2;
+				break;
+			case 1:
+				x_coord+=2;
+				y_coord-=2;
+				break;
+			case 2:
+				y_coord-=2;
+				break;
+			case 3:
+				y_coord-=2;
+				x_coord-=2;
+				break;
+			case 4:
+				x_coord-=2;
+				break;
+			case 5:
+				x_coord-=2;
+				y_coord+=2;
+			case 6:
+				y_coord+=2;
+			case 7:
+				x_coord+=2;
+				y_coord+=2;
+		}
+		if (x_coord == Params.world_width)	{
+			x_coord = 0;
+		} else if (x_coord == Params.world_width+1){
+			x_coord = 1;
+		} else if (x_coord == -1)	{
+			x_coord = Params.world_width-1;
+		} else if (x_coord == -2)	{
+			x_coord = Params.world_width-2;
+		}
 		
+		if (y_coord == Params.world_height)	{
+			y_coord = 0;
+		} else if (y_coord == Params.world_height+1) {
+			y_coord = 1;
+		} else if (y_coord == -1)	{
+			y_coord = Params.world_height-1;
+		} else if (y_coord == -2) {
+			y_coord = Params.world_height-2;
+		}
 	}
 	
 	protected final void reproduce(Critter offspring, int direction) {
@@ -74,6 +158,17 @@ public abstract class Critter {
 	 * @throws InvalidCritterException
 	 */
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
+		try {
+			Class newCritter = Class.forName("assignment4." + critter_class_name);
+			Critter Buddy = (Critter) newCritter.newInstance();
+			population.add(Buddy);
+			Buddy.x_coord = getRandomInt(Params.world_width - 1);
+			Buddy.y_coord = getRandomInt(Params.world_height - 1);
+			Buddy.energy = Params.start_energy;
+		}
+		catch(ClassNotFoundException | InstantiationException | IllegalAccessException exception)	{
+			throw new InvalidCritterException(critter_class_name);
+		}
 	}
 	
 	/**
