@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //This critter can walk in any direction and never chooses to fight. This critter's also very lucky, and
-//each turn it wins a little bit of money from a lottery ticket (up to $1000). runStats prints the total
+//each turn it wins a little bit of money from a lottery ticket (up to $100). runStats prints the total
 //money won as well as the individual amounts won each time step.
 
 public class MyCritter5 extends Critter{
@@ -18,7 +18,7 @@ public class MyCritter5 extends Critter{
 	{
 		int dir = Critter.getRandomInt(8);
 		walk(dir);
-		int lottoMoney = Critter.getRandomInt(1001);
+		int lottoMoney = Critter.getRandomInt(101);
 		tickets.add(lottoMoney);
 		totalMoneyWon += lottoMoney;
 	}
