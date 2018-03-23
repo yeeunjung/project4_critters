@@ -1,17 +1,55 @@
 package assignment4;
-
-/*
- * Just for fun. Not part of the 4.
+/* CRITTERS Main.java
+ * EE422C Project 4 submission by
+ * Allegra Thomas
+ * at35737
+ * 15510
+ * Yeeun Jung
+ * yj3897
+ * 15510
+ * Slip days used: <0>
+ * Spring 2018
  */
-import assignment4.Critter.TestCritter;
 
-public class Critter5 extends TestCritter {
+import java.util.ArrayList;
+import java.util.List;
 
-	public String toString() { return "*"; }
+//This critter can walk in any direction and never chooses to fight. This critter's also very lucky, and
+//each turn it wins a little bit of money from a lottery ticket (up to $100). runStats prints the total
+//money won as well as the individual amounts won each time step.
+
+public class Critter5 extends Critter{
 	
-	public boolean fight(String not_used) { return true; }
+	private static int totalMoneyWon = 0;
+	private static ArrayList<Integer> tickets = new ArrayList<Integer>();
 	
-	public void doTimeStep() {
-		setEnergy(getEnergy() + Params.photosynthesis_energy_amount);
+	
+	@Override
+	public void doTimeStep()
+	{
+		int dir = Critter.getRandomInt(8);
+		walk(dir);
+		int lottoMoney = Critter.getRandomInt(101);
+		tickets.add(lottoMoney);
+		totalMoneyWon += lottoMoney;
+	}
+	
+	@Override
+	public boolean fight(String opponent) {
+		//This critter's a goddang pacifist
+		return false;
+		
+	}
+	
+	public String toString() {
+		return("5");
+	}
+	
+	public static void runStats(java.util.List<Critter> critters)	{
+		System.out.println("Total Critter5s: " + critters.size());
+		System.out.println("Total lottery money won: $" + totalMoneyWon);
+		for(int i=1; i<tickets.size()+1; i++)	{
+			System.out.println("Lottery ticket " + i + ": $" + tickets.get(i-1) + " won.");
+		}
 	}
 }
