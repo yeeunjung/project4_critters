@@ -50,7 +50,7 @@ public class Critter3 extends Critter {
 		return "#";
 	}
 	
-	public static void runStats(java.util.List<Critter> craigs) {
+	public static void runStats(java.util.List<Critter> critters3) {
 		System.out.println("This Critter hates parties. Let's review how it copes being in a party situation.");
 		System.out.println("This Critter refused eye contact " + numTimesEyeContact + " times.");
 		System.out.println("This Critter smashed its face into a corner " + numTimesSmashed + " times.");
