@@ -61,7 +61,9 @@ public abstract class Critter {
 	
 	/**
 	 * This method moves a critter one position up, down, left, right, or any diagonal in between depending on the direction passed into the function.
-	 * If the critter moves out of the world's bounds, it's position gets updated to the opposite side of the world.
+	 * If the critter moves out of the world's bounds, its position gets updated to the opposite side of the world.
+	 * If the critter has moved before, the Critter will not move again but will still lose energy.
+	 * If the critter was in the midst of a battle, then the critter can only run if there are no other Critters there.
 	 * @param direction is the direction for the critter to move
 	 */
 	protected final void walk(int direction) {
@@ -130,9 +132,10 @@ public abstract class Critter {
 	/**
 	 * This method moves a critter two positions up, down, left, right, or any diagonal in between depending on the direction passed into the function.
 	 * If the critter moves out of the world's bounds, it's position gets updated to the opposite side of the world.
+	 * * If the critter has moved before, the Critter will not move again but will still lose energy.
+	 * If the critter was in the midst of a battle, then the critter can only run if there are no other Critters there.
 	 * @param direction is the direction for the critter to move
 	 */
-	
 	protected final void run(int direction) {
 		int origX = x_coord;
 		int origY = y_coord;
@@ -400,14 +403,18 @@ public abstract class Critter {
 	}
 	
 	/**
-	 * 
+	 * This function returns true or false regarding if two Critters are in the same exact 
+	 * position on the board/world.
+	 * @param a is the first Critter
+	 * @param b is the second Critter
+	 * @return boolean - if they are in the same position or not
 	 */
 	private static boolean samePosition(Critter a, Critter b) {
 		return (a.x_coord==b.x_coord && a.y_coord==b.y_coord);
 	}
 	
 	/**
-	 * 
+	 * This functions process the encounters between different Critters
 	 */
 	private static void doEncounters() {
 		// Must first figure out who is in the same spots
@@ -419,6 +426,7 @@ public abstract class Critter {
 					ArrayList<Integer> popID = new ArrayList<Integer>();
 					coord = String.valueOf(population.get(idx1).x_coord) + "," + String.valueOf(population.get(idx1).y_coord);
 					if(encountered.containsKey(coord)) {
+						// Key exists within the map
 						if(!encountered.get(coord).contains(idx1)) {
 							encountered.get(coord).add(idx1);
 						}
@@ -426,6 +434,7 @@ public abstract class Critter {
 							encountered.get(coord).add(idx2);
 						}
 					} else {
+						// Else create new key
 						popID.add(idx1);
 						popID.add(idx2);
 						encountered.put(coord,popID);
@@ -436,13 +445,11 @@ public abstract class Critter {
 	
 		// Time to fight
 		for (Map.Entry<String, ArrayList<Integer>> duel : encountered.entrySet()) {
-			//System.out.println("Starting fight");
 			// This means that we are talking for each key,value entry
 			for(int idx=0; idx<duel.getValue().size()-1; idx++) {
 				// We are now fighting~ must update boolean fighting
 				population.get(duel.getValue().get(idx)).fighting = true;
-				population.get(duel.getValue().get(idx+1)).fighting = true;
-				
+				population.get(duel.getValue().get(idx+1)).fighting = true;				
 				int winner=0;
 				int loser=0;
 				boolean p1Fight = population.get(duel.getValue().get(idx)).fight(population.get(duel.getValue().get(idx+1)).toString());
@@ -451,6 +458,7 @@ public abstract class Critter {
 				if(population.get(duel.getValue().get(idx)).energy>0 && population.get(duel.getValue().get(idx+1)).energy>0 && Critter.samePosition(population.get(duel.getValue().get(idx)), population.get(duel.getValue().get(idx+1)))) {
 					int p1Roll;
 					int p2Roll;
+					// If one does not want to fight, the fighter auto wins
 					if(p1Fight!=p2Fight) {
 						if(p1Fight) {
 							winner = idx;
@@ -495,6 +503,10 @@ public abstract class Critter {
 		return;
 	}
 	
+	/**
+	 * This functions goes ahead and process all the actions that happen in 
+	 * one time step.
+	 */
 	public static void worldTimeStep() {
 		// Increment timestep
 		
@@ -539,6 +551,10 @@ public abstract class Critter {
 		}
 	}
 	
+	/**
+	 * This function creates the visual map and places the Crittes in 
+	 * appropriate places.
+	 */
 	public static void displayWorld() {
 		// Create separator line
 		String line = "+";

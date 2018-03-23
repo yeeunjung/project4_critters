@@ -38,7 +38,7 @@ public class Critter4 extends Critter {
 	 * This is the function for when the Critter enounters another
 	 * Critter to fight. It will attempt to run away unless it is debt.
 	 * Then it must let itself be beaten.
-	 * @param String is the opponent
+	 * @param opponent String is the opponent
 	 * @return boolean if Critter will fight or not
 	 */
 	@Override
