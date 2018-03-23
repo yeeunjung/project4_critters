@@ -33,7 +33,7 @@ public class Critter4 extends Critter {
 	@Override
 	public boolean fight(String opponent) {
 		if (dir == 0) {
-			dir = 2;
+			dir = 4;
 		} else {
 			dir = 0;
 		}
@@ -51,7 +51,7 @@ public class Critter4 extends Critter {
 	}
 
 	public static void runStats(java.util.List<Critter> critter4s) {
-		System.out.println("The Critter has " + coins + "to spend.");
+		System.out.println("The Critter has " + coins + " coins to spend.");
 		int choice = Critter.getRandomInt(5);
 		String chosen="";
 		switch(choice) {
@@ -74,9 +74,9 @@ public class Critter4 extends Critter {
 		System.out.println("The Critter chooses the " + chosen + ".");
 		coins -= 500;
 		if(coins<0) {
-			System.out.println("The Critter now has a debt of " + coins + " to the sharks.");
+			System.out.println("The Critter now has a debt of " + coins + " coins to the sharks.");
 		} else {
-			System.out.println("The Critter now has " + coins + " left.");
+			System.out.println("The Critter now has " + coins + " coins left.");
 		}
 	}
 
