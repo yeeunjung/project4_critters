@@ -63,7 +63,7 @@ public class Critter3 extends Critter {
 	 * @return String representation is returned.
 	 */
 	public String toString() {
-		return "#";
+		return "3";
 	}
 	
 	/**
