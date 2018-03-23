@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
@@ -144,6 +145,7 @@ public class Main {
 		        			runStats.invoke(StatCritter, instances);
 		        			//Critter.runStats(instances);
 		        		} catch (InvalidCritterException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoClassDefFoundError e) {
+		        		} catch (InvalidCritterException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | NoClassDefFoundError | IllegalArgumentException | InvocationTargetException e) {
 		        			System.out.println("error processing: " + tempCommand);
 		        		}
 	        		}
