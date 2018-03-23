@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.*;
+import java.lang.reflect.Method;
 
 
 /*
@@ -74,15 +75,15 @@ public class Main {
         /* Write your code below. */
         String tempCommand;
   
-          for(int count=0; count<1; count++) {
-        	try {
-        		Critter.makeCritter("Craig");
-        		Critter.makeCritter("Critter5");
-        	} catch(InvalidCritterException | NoClassDefFoundError e) {
-        		System.out.println("fuck u man");
-        	}
-        	
-        }
+//          for(int count=0; count<1; count++) {
+//        	try {
+//        		Critter.makeCritter("Craig");
+//        		Critter.makeCritter("Critter5");
+//        	} catch(InvalidCritterException | NoClassDefFoundError e) {
+//        		System.out.println("fuck u man");
+//        	}
+//        	
+//        }
         
         while(true) {
 	        	System.out.println("critters>");
@@ -149,8 +150,11 @@ public class Main {
 	        		} else {
 		        		try {
 		        			List<Critter> instances = Critter.getInstances(tempCommandStr[1]);
-		        			Critter.runStats(instances);
-		        		} catch (InvalidCritterException e) {
+		        			Class StatCritter = Class.forName("assignment4." + tempCommandStr[1]);
+		        			Method runStats = StatCritter.getMethod("runStats", List.class);
+		        			runStats.invoke(StatCritter, instances);
+		        			//Critter.runStats(instances);
+		        		} catch (InvalidCritterException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoClassDefFoundError e) {
 		        			System.out.println("error processing: " + tempCommand);
 		        		}
 	        		}
