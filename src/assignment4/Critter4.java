@@ -59,10 +59,7 @@ public class Critter4 extends Critter {
 	 * @return String of the Critter
 	 */
 	public String toString() {
-		if (getEnergy() <= Params.start_energy * 0.5) {
-			return "m";
-		}
-		return "M";
+		return "4";
 	}
 	
 	/**
