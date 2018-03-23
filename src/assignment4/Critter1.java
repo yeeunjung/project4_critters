@@ -1,5 +1,5 @@
 package assignment4;
-/* CRITTERS Main.java
+/* CRITTERS Critter1.java
  * EE422C Project 4 submission by
  * Allegra Thomas
  * at35737
@@ -18,7 +18,7 @@ import java.util.List;
 //each turn it wins a little bit of money from a lottery ticket (up to $100). runStats prints the total
 //money won as well as the individual amounts won each time step.
 
-public class Critter5 extends Critter{
+public class Critter1 extends Critter{
 	
 	private static int totalMoneyWon = 0;
 	private static ArrayList<Integer> tickets = new ArrayList<Integer>();
