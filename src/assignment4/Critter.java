@@ -54,11 +54,16 @@ public abstract class Critter {
 	private int x_coord;
 	private int y_coord;
 	
-	// Our own variable for it the Critter moved at all
+	// Our own variable for if the Critter moved at all
 	private boolean moved;
 	// Or if it is fighting
 	private boolean fighting;
 	
+	/**
+	 * This method moves a critter one position up, down, left, right, or any diagonal in between depending on the direction passed into the function.
+	 * If the critter moves out of the world's bounds, it's position gets updated to the opposite side of the world.
+	 * @param direction is the direction for the critter to move
+	 */
 	protected final void walk(int direction) {
 		int origX = x_coord;
 		int origY = y_coord;
@@ -121,6 +126,12 @@ public abstract class Critter {
 			moved = true;
 		}
 	}
+	
+	/**
+	 * This method moves a critter two positions up, down, left, right, or any diagonal in between depending on the direction passed into the function.
+	 * If the critter moves out of the world's bounds, it's position gets updated to the opposite side of the world.
+	 * @param direction is the direction for the critter to move
+	 */
 	
 	protected final void run(int direction) {
 		int origX = x_coord;
@@ -193,6 +204,13 @@ public abstract class Critter {
 			moved = true;
 		}
 	}
+	
+	/**
+	 * This method initializes a critter's offspring.
+	 * The baby is assigned half of the parent's energy and assigned coordinates adjacent to the parent (determined by direction).
+	 * @param offspring is the baby to be added to the world
+	 * @param direction determines the position adjacent to the parent where the baby will be added
+	 */
 	
 	protected final void reproduce(Critter offspring, int direction) {
 		if (energy < Params.min_reproduce_energy) {
