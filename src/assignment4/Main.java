@@ -1,14 +1,13 @@
 package assignment4;
 /* CRITTERS Main.java
  * EE422C Project 4 submission by
- * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
+ * Allegra Thomas
+ * at35737
+ * 15510
  * Yeeun Jung
  * yj3897
- * <Student2 5-digit Unique No.>
- * Slip days used: 0
+ * 15510
+ * Slip days used: <0>
  * Spring 2018
  */
 
@@ -74,16 +73,6 @@ public class Main {
         /* Do not alter the code above for your submission. */
         /* Write your code below. */
         String tempCommand;
-  
-//          for(int count=0; count<1; count++) {
-//        	try {
-//        		Critter.makeCritter("Craig");
-//        		Critter.makeCritter("Critter5");
-//        	} catch(InvalidCritterException | NoClassDefFoundError e) {
-//        		System.out.println("fuck u man");
-//        	}
-//        	
-//        }
         
         while(true) {
 	        	System.out.println("critters>");
