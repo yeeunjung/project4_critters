@@ -23,7 +23,7 @@ public class Critter2 extends Critter{
 	
 	@Override
 	/**
-	 * This method updates a Critter5 during one step.
+	 * This method updates a Critter2 during one step.
 	 * The critter runs in either the 0, 1, or 2 direction.
 	 * If the critter runs horizontally or vertically, it falls and gets a bruise.
 	 * Then the critter reproduces.
@@ -40,7 +40,7 @@ public class Critter2 extends Critter{
 	
 	@Override
 	/**
-	 * This method determines whether a Critter5 will fight or not.
+	 * This method determines whether a Critter2 will fight or not.
 	 * If the critter moved in a diagonal direction, it will fight, otherwise it won't.
 	 * @param opponent is the other critter to be fought
 	 * @return true if the critter wants to fight, false if it doesn't want to fight
@@ -55,14 +55,15 @@ public class Critter2 extends Critter{
 	}
 	
 	/**
-	 * This method 
-	 * If the critter moves out of the world's bounds, it's position gets updated to the opposite side of the world.
-	 * @param direction is the direction for the critter to move
+	 * This method returns the ASCII character representation of a Critter2.
 	 */
 	public String toString() {
 		return("2");
 	}
 	
+	/**
+	 * This method prints the total number of Critter2s in the world, as well as the total number of their collective bruises from falling.
+	 */
 	public static void runStats(java.util.List<Critter> critters)	{
 		System.out.println("Total Critter2s: " + critters.size());
 		System.out.println("Total bruises: " + bruises);
