@@ -25,6 +25,12 @@ public class Critter5 extends Critter{
 	
 	
 	@Override
+	/**
+	 * This method updates a Critter5 during one step.
+	 * The critter walks in any random direction.
+	 * The critter scratches off a lottery ticket and wins an amount of money from $0-$100.
+	 * The money won gets added to the total money won by all Critter5s and the ticket amount gets recorded into the tickets arraylist.
+	 */
 	public void doTimeStep()
 	{
 		int dir = Critter.getRandomInt(8);
@@ -35,16 +41,29 @@ public class Critter5 extends Critter{
 	}
 	
 	@Override
+	/**
+	 * This method determines whether a Critter5 will fight or not.
+	 * Critter5s never fight, or even run from a fight because they are little weenies.
+	 * @param opponent is the other critter to be fought
+	 * @return true if the critter wants to fight, false if it doesn't want to fight
+	 */
 	public boolean fight(String opponent) {
 		//This critter's a goddang pacifist
 		return false;
 		
 	}
 	
+	/**
+	 * This method returns the ASCII character representation of a Critter5.
+	 */
 	public String toString() {
 		return("5");
 	}
 	
+	/**
+	 * This method prints the total number of Critter5s in the world, as well as the total amount of money they have collectively
+	 * won on lottery tickets, as well as the record of their tickets used each turn and how much money was won from each ticket.
+	 */
 	public static void runStats(java.util.List<Critter> critters)	{
 		System.out.println("Total Critter5s: " + critters.size());
 		System.out.println("Total lottery money won: $" + totalMoneyWon);
