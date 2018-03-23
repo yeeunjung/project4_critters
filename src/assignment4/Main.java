@@ -144,7 +144,6 @@ public class Main {
 		        			Method runStats = StatCritter.getMethod("runStats", List.class);
 		        			runStats.invoke(StatCritter, instances);
 		        			//Critter.runStats(instances);
-		        		} catch (InvalidCritterException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoClassDefFoundError e) {
 		        		} catch (InvalidCritterException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | NoClassDefFoundError | IllegalArgumentException | InvocationTargetException e) {
 		        			System.out.println("error processing: " + tempCommand);
 		        		}
