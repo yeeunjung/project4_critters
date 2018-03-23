@@ -72,24 +72,28 @@ public class Main {
         }
 
         /* Do not alter the code above for your submission. */
-        /* Write your code below. */
+
         String tempCommand;
         
         while(true) {
 	        	System.out.println("critters>");
 	        	tempCommand = kb.nextLine();  
+	        	//split up the command into its parts
 	        	String[] tempCommandStr = tempCommand.trim().split(" ");
 	        	if(tempCommandStr[0].equals("show")) {
-	        		//if there's extra stuff after "show"
+	        		//if there's extra stuff after "show" don't process command
 	        		if (tempCommandStr.length != 1)	{
 	        			System.out.println("error processing: " + tempCommand);
 	        		} else {
 	        			Critter.displayWorld();
 	        		}
 	        	} else if(tempCommandStr[0].equals("step")) {
+	        		//if command is only "step"
 	        		if(tempCommandStr.length==1) {
 	        			Critter.worldTimeStep();
+	        		//if command is step + number of times to be stepped
 	        		} else if (tempCommandStr.length==2){	
+	        			//in case there's an error in parsing the int number of steps
 	        			try {
 		        			for(int count=0; count<Integer.valueOf(tempCommandStr[1]); count++) {
 		        				Critter.worldTimeStep();
@@ -98,6 +102,7 @@ public class Main {
 	        					System.out.println("error processing: " + tempCommand);
 		        			}
 	        		} else {
+	        			//if there's more than two arguments
 	        			System.out.println("error processing: " + tempCommand);
 	        		}
 	        	} else if (tempCommandStr[0].equals("make")) {
@@ -106,17 +111,21 @@ public class Main {
 	        			System.out.println("error processing: " + tempCommand);
 	        		} else {
 		        		int count = 1;
+		        		//assign count the number of times to make a critter if one is provided
 		        		if (tempCommandStr.length==3) {
+		        			//in case there's an error parsing the int number of times to make critter
 		        			try {
 		        				count = Integer.valueOf(tempCommandStr[2]);
 		        			} catch (NumberFormatException e){
 		        				System.out.println("error processing: " + tempCommand);
 		        			}
 		        		}
+		        		//make the critter the specified number of times
 	        			try {
 	        				for (int i=0; i<count; i++) {
 	        					Critter.makeCritter(tempCommandStr[1]);
 	        				}
+	        			//in case the user provided an invalid critter name
 	        			} catch(InvalidCritterException | NoClassDefFoundError e) {
 	        				System.out.println("error processing: " + tempCommand);
 	        			}
@@ -129,6 +138,7 @@ public class Main {
 		        		try {
 		        			int seed = Integer.valueOf(tempCommandStr[1]);
 		        			Critter.setSeed(seed);
+		        		//in case there's an error parsing the int to be used as a seed
 		        		} catch (NumberFormatException e) {
 		        			System.out.println("error processing: " + tempCommand);
 		        		}
@@ -139,11 +149,12 @@ public class Main {
 	        			System.out.println("error processing: " + tempCommand);
 	        		} else {
 		        		try {
+		        			//get the runStats method for the specific critter and call it
 		        			List<Critter> instances = Critter.getInstances(tempCommandStr[1]);
 		        			Class StatCritter = Class.forName("assignment4." + tempCommandStr[1]);
 		        			Method runStats = StatCritter.getMethod("runStats", List.class);
 		        			runStats.invoke(StatCritter, instances);
-		        		} catch (InvalidCritterException | ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+		        		} catch (InvalidCritterException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoClassDefFoundError e) {
 		        			System.out.println("error processing: " + tempCommand);
 		        		}
 	        		}
@@ -154,7 +165,6 @@ public class Main {
 	        	}
         }
         
-        /* Write your code above */
         System.out.flush();
 
     }
