@@ -37,7 +37,7 @@ public class Critter3 extends Critter {
 	/**
 	 * This function is for when the critter encounters another critter.
 	 * Updates what actions correspond to the actions taken in fight.
-	 * @param String representation of the critter encountered
+	 * @param opponent String representation of the critter encountered
 	 * @return boolean if the critter is willing to fight or not.
 	 */
 	@Override
@@ -72,10 +72,10 @@ public class Critter3 extends Critter {
 	 * @param critters3 - gives a list of all the critters that are the Critter3 type
 	 */
 	public static void runStats(java.util.List<Critter> critters3) {
-		System.out.println("This Critter hates parties. Let's review how " + critters3.size() + "of them cope being in a party situation.");
-		System.out.println("This Critter refused eye contact " + numTimesEyeContact + " times.");
-		System.out.println("This Critter smashed their faces into a corner " + numTimesSmashed + " times.");
-		System.out.println("This Critter were cornered by other Critters " + numTimesStressed + " times.");
+		System.out.println("This Critter hates parties. Let's review how " + critters3.size() + " Critters cope with being in a party situation.");
+		System.out.println("These Critters refused eye contact " + numTimesEyeContact + " times.");
+		System.out.println("These Critters smashed their faces into a corner " + numTimesSmashed + " times.");
+		System.out.println("These Critters were cornered by other Critters " + numTimesStressed + " times.");
 		if((numTimesStressed + numTimesSmashed+numTimesEyeContact)==0) {
 			numTimesStressed = 1; // picked arbitrary -> will be zero.
 		}
