@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
@@ -116,7 +117,7 @@ public class Main {
 	        				for (int i=0; i<count; i++) {
 	        					Critter.makeCritter(tempCommandStr[1]);
 	        				}
-	        			} catch(InvalidCritterException e) {
+	        			} catch(InvalidCritterException | NoClassDefFoundError e) {
 	        				System.out.println("error processing: " + tempCommand);
 	        			}
 	        		}
@@ -142,20 +143,16 @@ public class Main {
 		        			Class StatCritter = Class.forName("assignment4." + tempCommandStr[1]);
 		        			Method runStats = StatCritter.getMethod("runStats", List.class);
 		        			runStats.invoke(StatCritter, instances);
-		        			//Critter.runStats(instances);
-		        		} catch (InvalidCritterException | ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException | NoClassDefFoundError e) {
+		        		} catch (InvalidCritterException | ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 		        			System.out.println("error processing: " + tempCommand);
 		        		}
 	        		}
 	        	} else if(tempCommandStr[0].equals("quit")) {
-	        		System.out.println("noob");
 	        		break;
 	        	} else {
 	        		System.out.println("invalid command: " + tempCommand);
 	        	}
         }
-
-        // System.out.println("GLHF");
         
         /* Write your code above */
         System.out.flush();
