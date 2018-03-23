@@ -32,17 +32,18 @@ public class Critter3 extends Critter {
 
 	@Override
 	public boolean fight(String opponent) {
-		if (getEnergy() > Params.run_energy_cost+Params.rest_energy_cost*3) { 
+		int option = Critter.getRandomInt(10);
+		if (option>6) { 
 			run(3);
 			numTimesSmashed++;
 			return false;
-		} else if(getEnergy() > Params.walk_energy_cost+Params.rest_energy_cost*3) {
+		} else if(option<=6 && option>3) {
 			walk(3);
 			numTimesEyeContact++;
 			return false;
 		} else {
 			numTimesStressed++;
-			return true;
+			return true; 
 		}
 	}
 	
@@ -55,10 +56,10 @@ public class Critter3 extends Critter {
 		System.out.println("This Critter refused eye contact " + numTimesEyeContact + " times.");
 		System.out.println("This Critter smashed its face into a corner " + numTimesSmashed + " times.");
 		System.out.println("This Critter was cornered by other Critters " + numTimesStressed + " times.");
-		if(numTimesStressed + numTimesSmashed+numTimesEyeContact==0) {
+		if((numTimesStressed + numTimesSmashed+numTimesEyeContact)==0) {
 			numTimesStressed = 1; // picked arbitrary -> will be zero.
 		}
-		int percentageSuccess = (numTimesSmashed+numTimesEyeContact)/(numTimesStressed + numTimesSmashed+numTimesEyeContact)*100;
+		double percentageSuccess = (double)(numTimesSmashed+numTimesEyeContact)/(numTimesStressed + numTimesSmashed+numTimesEyeContact)*100;
 		System.out.println("Engagement was successfully avoided " + percentageSuccess + "% of the time.");
 	}
 	
