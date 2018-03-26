@@ -199,7 +199,7 @@ public abstract class Critter {
 						count++;
 					}
 				}
-				if(count<1) {
+				if(count<=1) {
 					x_coord = origX;
 					y_coord = origY;
 				}
@@ -459,7 +459,6 @@ public abstract class Critter {
 					int p1Roll;
 					int p2Roll;
 					// If one does not want to fight, the fighter auto wins
-					
 					if(p1Fight!=p2Fight) {
 						if(p1Fight) {
 							winner = idx;
@@ -470,7 +469,6 @@ public abstract class Critter {
 							loser = idx;
 						}
 					} else {
-					
 						if(p1Fight) {
 							p1Roll = Critter.getRandomInt(population.get(duel.getValue().get(idx)).energy+1);
 						} else {
@@ -499,7 +497,7 @@ public abstract class Critter {
 					population.get(duel.getValue().get(idx+1)).fighting = false;
 					
 					//System.out.println(population.get(duel.getValue().get(winner)).toString() + winner + " has won");
-				} 
+				}
 			}
 		}
 		return;
@@ -550,7 +548,6 @@ public abstract class Critter {
 		// Now that the time is over, everyone resets if they have moved or not
 		for(Critter crit : population) {
 			crit.moved = false;
-			crit.fighting = false;
 		}
 	}
 	
